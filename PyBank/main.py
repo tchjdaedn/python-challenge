@@ -51,7 +51,7 @@ print(f"Total Months Analyzed: {rowcount}")
 print(f"Total: ${money_format(Total)}")
 print(f"Average monthly change:  ${money_format(Total_change/(rowcount-1))}")
 print(f"Greatest Increase in Profits: ${money_format(int(GIIP[1]))} on {GIIP[0]}")
-print(f"Greatest Decrease in Profits: ${money_format(int(GDIP[1]))}on {GIIP[0]}")
+print(f"Greatest Decrease in Profits: ${money_format(int(GDIP[1]))} on {GDIP[0]}")
 
 #Print results to file
 output_path = os.path.join(".", "Financial_Analysis.txt")
@@ -62,5 +62,5 @@ with open(output_path, 'w') as textfile:
 	textfile.write(f"\nTotal: ${money_format(Total)}")
 	textfile.write(f"\nAverage monthly change:  ${money_format(Total_change/(rowcount-1))}")
 	textfile.write(f"\nGreatest Increase in Profits: ${money_format(int(GIIP[1]))} on {GIIP[0]}")
-	textfile.write(f"\nGreatest Decrease in Profits: ${money_format(int(GDIP[1]))} on {GIIP[0]}")
+	textfile.write(f"\nGreatest Decrease in Profits: ${money_format(int(GDIP[1]))} on {GDIP[0]}")
 	print(f"\n\nAnalysis output to {output_path}")
