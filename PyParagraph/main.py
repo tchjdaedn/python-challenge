@@ -3,10 +3,9 @@ import os
 import re
 
 #designate data path
-filepath = os.path.join('.','paragraph_2.txt')
+filepath = os.path.join('.','paragraph_1.txt')
 
 #initialize variables
-list = []
 sentence = []
 lengthcount = {1:0}
 wordcount = 0
@@ -19,10 +18,10 @@ raw_sentence_count = 0
 with open(filepath, 'r', encoding='utf-8') as textfile:
     for block in textfile:
         paragraph = re.split("(?<=[.\n!?]) +", block)
-        sentence_count = len(paragraph)
+        sentence_count = len(paragraph) #not reliable
         for sentence_num in range(0,len(paragraph)):
             #print(f" {paragraph[sentence_num]}\t{len(paragraph)}")
-            #raw_sentence_count +=1
+			#get rid of all the crap.  There's probably more succinct ways to do this
             paragraph[sentence_num] = paragraph[sentence_num].replace('-',' ')
             paragraph[sentence_num] = paragraph[sentence_num].replace('; ',' ')
             paragraph[sentence_num] = paragraph[sentence_num].replace('>',' ')
@@ -39,14 +38,14 @@ with open(filepath, 'r', encoding='utf-8') as textfile:
             paragraph[sentence_num] = paragraph[sentence_num].replace('”','')
             paragraph[sentence_num] = paragraph[sentence_num].replace('  ',' ')
             sentence = paragraph[sentence_num].split(" ")
-            if len(sentence)>1:
+            if len(sentence)>1: #don't count 1-word sentences
                 sentence_length += len(sentence)
                 raw_sentence_count +=1
             
             #print(f"{sentence}, {len(sentence)}")
             for word_num in range(0,len(sentence)):
                 #print(f"{len(sentence[word_num])}\t{sentence[word_num]}")
-                if len(sentence[word_num])>0:
+                if len(sentence[word_num])>0: #don't count blank "" words
                     wordcount +=1
                     check = 0
                 while check == 0:
@@ -56,7 +55,7 @@ with open(filepath, 'r', encoding='utf-8') as textfile:
                             lengthcount[i] = int(lengthcount[i])+1
                             check = 1
                         if check == 0:
-                            check = 2
+                            check = 2 #add a new length to dictionary
                 if check == 2:
                     lengthcount[len(sentence[word_num])] = 1
                 #print(lengthcount, wordcount, sentence_count, sentence_length/sentence_count)
@@ -65,6 +64,8 @@ with open(filepath, 'r', encoding='utf-8') as textfile:
         weighted_ave += lengthcount[i]*i
         #print(weighted_ave, weighted_ave/wordcount)
     #print(raw_sentence_count)
+	
+#print to console, no required file output
 print(f"\nParagraph Analysis")
 print(f"------------------")
 print(f"Word count: {wordcount}")
